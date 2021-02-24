@@ -11,7 +11,7 @@ if ! type mapfile &> /dev/null; then
     exit 1
 fi
 
-PRJ_URL=https://github.com/laktak/maccyakto
+PRJ_URL=https://github.com/atomicstack/maccyakto
 current_dir="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 trigger_pane=$1
 launch_mode=$2
@@ -95,29 +95,29 @@ open() {
 }
 
 query_maccy() {
-  PATH_TO_MACCY_DB="$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite"
-  echo "SELECT DISTINCT TRIM(ZVALUE) FROM ZHISTORYITEMCONTENT WHERE ZTYPE IN ('public.text','public.utf8-plain-text') ORDER BY Z_PK DESC" | sqlite3 $PATH_TO_MACCY_DB
+  PATH_TO_MACCY_DB="$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application Support/Maccy/Storage.sqlite"
+  echo "SELECT DISTINCT TRIM(ZVALUE) FROM ZHISTORYITEMCONTENT WHERE ZTYPE IN ('public.text','public.utf8-plain-text') ORDER BY Z_PK DESC" | sqlite3 "$PATH_TO_MACCY_DB"
 }
 
-capture_panes() {
-    local pane captured
-    captured=""
-
-    if [[ $grab_area =~ ^window\  ]]; then
-        for pane in $(tmux list-panes -F "#{pane_active}:#{pane_id}"); do
-            # exclude the active (for split) and trigger panes
-            # in popup mode the active and tigger panes are the same
-            if [[ $pane =~ ^0: && ${pane:2} != "$trigger_pane" ]]; then
-                captured+="$(tmux capture-pane -pJS ${capture_pane_start} -t ${pane:2})"
-                captured+=$'\n'
-            fi
-        done
-    fi
-
-    captured+="$(tmux capture-pane -pJS ${capture_pane_start} -t $trigger_pane)"
-
-    echo "$captured"
-}
+# capture_panes() {
+#     local pane captured
+#     captured=""
+# 
+#     if [[ $grab_area =~ ^window\  ]]; then
+#         for pane in $(tmux list-panes -F "#{pane_active}:#{pane_id}"); do
+#             # exclude the active (for split) and trigger panes
+#             # in popup mode the active and tigger panes are the same
+#             if [[ $pane =~ ^0: && ${pane:2} != "$trigger_pane" ]]; then
+#                 captured+="$(tmux capture-pane -pJS ${capture_pane_start} -t ${pane:2})"
+#                 captured+=$'\n'
+#             fi
+#         done
+#     fi
+# 
+#     captured+="$(tmux capture-pane -pJS ${capture_pane_start} -t $trigger_pane)"
+# 
+#     echo "$captured"
+# }
 
 has_single_pane() {
     local num_panes
@@ -138,7 +138,7 @@ show_fzf_error() {
 capture() {
     local mode header_tmpl header out res key text query
 
-    mode=word
+    mode=line
     header_tmpl="${COLORS[BOLD]}${insert_key}${COLORS[OFF]}=insert"
     header_tmpl+=", ${COLORS[BOLD]}${copy_key}${COLORS[OFF]}=copy"
     [[ -n "$open_tool" ]] && header_tmpl+=", ${COLORS[BOLD]}${open_key}${COLORS[OFF]}=open"
@@ -151,11 +151,11 @@ capture() {
 
     get_cap() {
         if [[ $mode == all ]]; then
-            capture_panes | $maccyakto $extra_maccyakto_options --alt --all --name -r
+            query_maccy | $maccyakto $extra_maccyakto_options --alt --all --name -r
         elif [[ $mode == line ]]; then
-            capture_panes | $maccyakto $extra_maccyakto_options -rl
+            query_maccy | $maccyakto $extra_maccyakto_options -rl
         else
-            capture_panes | $maccyakto $extra_maccyakto_options -rw
+            query_maccy | $maccyakto $extra_maccyakto_options -rw
         fi
     }
 
