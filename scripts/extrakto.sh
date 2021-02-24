@@ -94,6 +94,11 @@ open() {
     fi
 }
 
+query_maccy() {
+  PATH_TO_MACCY_DB="$HOME/Library/Containers/org.p0deje.Maccy/Data/Library/Application\ Support/Maccy/Storage.sqlite"
+  echo "SELECT DISTINCT TRIM(ZVALUE) FROM ZHISTORYITEMCONTENT WHERE ZTYPE IN ('public.text','public.utf8-plain-text') ORDER BY Z_PK DESC" | sqlite3 $PATH_TO_MACCY_DB
+}
+
 capture_panes() {
     local pane captured
     captured=""
