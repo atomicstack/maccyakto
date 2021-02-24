@@ -142,13 +142,15 @@ capture() {
     header_tmpl+=", ${COLORS[BOLD]}${grab_key}${COLORS[OFF]}=grab area [${COLORS[YELLOW]}${COLORS[BOLD]}:ga:${COLORS[OFF]}]"
     header_tmpl+=", ${COLORS[BOLD]}${help_key}${COLORS[OFF]}=help"
 
+    extra_extrakto_options="--min-length=4 --warn-empty"
+
     get_cap() {
         if [[ $mode == all ]]; then
-            capture_panes | $extrakto --warn-empty --alt --all --name -r
+            capture_panes | $extrakto $extra_extrakto_options --alt --all --name -r
         elif [[ $mode == line ]]; then
-            capture_panes | $extrakto --warn-empty -rl
+            capture_panes | $extrakto $extra_extrakto_options -rl
         else
-            capture_panes | $extrakto --warn-empty -rw
+            capture_panes | $extrakto $extra_extrakto_options -rw
         fi
     }
 
