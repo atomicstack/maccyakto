@@ -18,75 +18,75 @@ get_option() {
     local option=$1
 
     case "$option" in
-        "@extrakto_key")
+        "@maccyakto_key")
             echo $(get_tmux_option $option "tab")
             ;;
 
-        "@extrakto_split_direction")
+        "@maccyakto_split_direction")
             echo $(get_tmux_option $option "a")
             ;;
 
-        "@extrakto_split_size")
+        "@maccyakto_split_size")
             echo $(get_tmux_option $option "7")
             ;;
 
-        "@extrakto_grab_area")
+        "@maccyakto_grab_area")
             echo $(get_tmux_option $option "full")
             ;;
 
-        "@extrakto_clip_tool")
+        "@maccyakto_clip_tool")
             echo $(get_tmux_option $option "auto")
             ;;
 
-        "@extrakto_fzf_tool")
+        "@maccyakto_fzf_tool")
             echo $(get_tmux_option $option "fzf")
             ;;
 
-        "@extrakto_open_tool")
+        "@maccyakto_open_tool")
             echo $(get_tmux_option $option "auto")
             ;;
 
-        "@extrakto_copy_key")
+        "@maccyakto_copy_key")
             echo $(get_tmux_option $option "enter")
             ;;
 
-        "@extrakto_insert_key")
+        "@maccyakto_insert_key")
             echo $(get_tmux_option $option "tab")
             ;;
 
-        "@extrakto_filter_key")
+        "@maccyakto_filter_key")
             echo $(get_tmux_option $option "ctrl-f")
             ;;
 
-        "@extrakto_open_key")
+        "@maccyakto_open_key")
             echo $(get_tmux_option $option "ctrl-o")
             ;;
 
-        "@extrakto_edit_key")
+        "@maccyakto_edit_key")
             echo $(get_tmux_option $option "ctrl-e")
             ;;
 
-        "@extrakto_grab_key")
+        "@maccyakto_grab_key")
             echo $(get_tmux_option $option "ctrl-g")
             ;;
 
-        "@extrakto_help_key")
+        "@maccyakto_help_key")
             echo $(get_tmux_option $option "ctrl-h")
             ;;
 
-        "@extrakto_clip_tool_run")
+        "@maccyakto_clip_tool_run")
             echo $(get_tmux_option $option "bg")
             ;;
 
-        "@extrakto_popup_size")
+        "@maccyakto_popup_size")
             echo $(get_tmux_option $option "90%")
             ;;
 
-        "@extrakto_popup_position")
+        "@maccyakto_popup_position")
             echo $(get_tmux_option $option "C")
             ;;
 
-        "@extrakto_fzf_layout")
+        "@maccyakto_fzf_layout")
             echo $(get_tmux_option $option "default")
             ;;
 

@@ -1,6 +1,6 @@
-# extrakto help
+# maccyakto help
 
-You can give feedback or star extrakto at https://github.com/laktak/extrakto
+You can give feedback or star maccyakto at https://github.com/laktak/maccyakto
 
 Extrakto uses fzf. You only need to type a few keys to find your selection with a fuzzy match.
 

@@ -10,7 +10,7 @@ script_dir = os.path.dirname(os.path.realpath(__file__))
 
 def run_test(switch, name):
     subprocess.run(
-        f"../extrakto.py {switch} --alt < assets/{name}.txt | cmp - ./assets/{name}_result{switch}.txt",
+        f"../maccyakto.py {switch} --alt < assets/{name}.txt | cmp - ./assets/{name}_result{switch}.txt",
         shell=True,
         check=True,
         cwd=script_dir,

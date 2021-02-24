@@ -26,15 +26,15 @@ RE_WORD = "[^][(){}=$\u2500-\u27BF\uE000-\uF8FF \\t\\n\\r]+"
 class Extrakto:
     def __init__(self, *, min_length=5, alt=False, prefix_name=False):
         conf = ConfigParser(interpolation=None)
-        default_conf = os.path.join(SCRIPT_DIR, "extrakto.conf")
+        default_conf = os.path.join(SCRIPT_DIR, "maccyakto.conf")
         user_conf = os.path.join(
-            os.path.expanduser("~/.config"), "extrakto/extrakto.conf"
+            os.path.expanduser("~/.config"), "maccyakto/maccyakto.conf"
         )
 
         conf.read([default_conf, user_conf])
         sections = conf.sections()
         if not "path" in sections or not "url" in sections:
-            raise Exception("extrakto.conf incomplete")
+            raise Exception("maccyakto.conf incomplete")
 
         self.min_length = min_length
         self.alt = alt
@@ -75,8 +75,8 @@ class Extrakto:
 
 
 class FilterDef:
-    def __init__(self, extrakto, name, *, regex, exclude, lstrip, rstrip, alt):
-        self.extrakto = extrakto
+    def __init__(self, maccyakto, name, *, regex, exclude, lstrip, rstrip, alt):
+        self.maccyakto = maccyakto
         self.name = name
         self.regex = regex
         self.exclude = exclude
@@ -86,7 +86,7 @@ class FilterDef:
 
     def filter(self, text):
         res = list()
-        if self.extrakto.prefix_name:
+        if self.maccyakto.prefix_name:
             add = lambda name, value: res.append(f"{name}: {value}")
         else:
             add = lambda name, value: res.append(value)
@@ -100,9 +100,9 @@ class FilterDef:
             if self.rstrip:
                 item = item.rstrip(self.rstrip)
 
-            if len(item) >= self.extrakto.min_length:
+            if len(item) >= self.maccyakto.min_length:
                 if not self.exclude or not re.search(self.exclude, item, re.I):
-                    if self.extrakto.alt:
+                    if self.maccyakto.alt:
                         for i, altre in enumerate(self.alt):
                             m = re.search(altre, item)
                             if m:
@@ -140,15 +140,15 @@ def main(parser):
     res = []
     text = sys.stdin.read()
 
-    extrakto = Extrakto(min_length=args.min_length, alt=args.alt, prefix_name=args.name)
+    maccyakto = Extrakto(min_length=args.min_length, alt=args.alt, prefix_name=args.name)
     if args.all:
-        run_list = extrakto.all()
+        run_list = maccyakto.all()
 
     if args.lines:
         res += get_lines(text, min_length=args.min_length, prefix_name=args.name)
 
     for name in run_list:
-        res += extrakto[name].filter(text)
+        res += maccyakto[name].filter(text)
 
     if res:
         if args.reverse:
@@ -178,7 +178,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--all",
         action="store_true",
-        help="extract using all filters defined in extrakto.conf",
+        help="extract using all filters defined in maccyakto.conf",
     )
 
     parser.add_argument(

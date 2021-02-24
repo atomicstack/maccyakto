@@ -3,7 +3,7 @@
 
 import unittest
 
-from extrakto import Extrakto
+from maccyakto import Extrakto
 
 get_urls = Extrakto()["url"].filter
 
@@ -46,10 +46,10 @@ class TestGetURLs(unittest.TestCase):
 
     def test_match_git(self):
         text = (
-            "hey, check out this repo git@github.com:laktak/extrakto.git"
+            "hey, check out this repo git@github.com:laktak/maccyakto.git"
             ", it's a great tmux plugin"
         )
-        urls = ["git@github.com:laktak/extrakto.git"]
+        urls = ["git@github.com:laktak/maccyakto.git"]
 
         result = get_urls(text)
         self.assertEqual(urls, result)

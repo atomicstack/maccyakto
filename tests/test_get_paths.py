@@ -3,7 +3,7 @@
 
 import unittest
 
-from extrakto import Extrakto
+from maccyakto import Extrakto
 
 get_paths = Extrakto()["path"].filter
 

@@ -3,7 +3,7 @@ platform="$(uname)"
 
 # first check the version of bash
 if ! type mapfile &> /dev/null; then
-    echo "error: extrakto needs a newer Bash"
+    echo "error: maccyakto needs a newer Bash"
     if [[ $platform == Darwin ]]; then
         echo "On macOS you need to install/update it with Homebrew."
     fi
@@ -11,12 +11,12 @@ if ! type mapfile &> /dev/null; then
     exit 1
 fi
 
-PRJ_URL=https://github.com/laktak/extrakto
+PRJ_URL=https://github.com/laktak/maccyakto
 current_dir="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 trigger_pane=$1
 launch_mode=$2
 source "$current_dir/helpers.sh"
-extrakto="$current_dir/../extrakto.py"
+maccyakto="$current_dir/../maccyakto.py"
 
 declare -Ar COLORS=(
     [RED]=$'\033[0;31m'
@@ -31,19 +31,19 @@ declare -Ar COLORS=(
 )
 
 # options; note some of the values can be overwritten by capture()
-grab_area=$(get_option "@extrakto_grab_area")
-clip_tool=$(get_option "@extrakto_clip_tool")
-clip_tool_run=$(get_option "@extrakto_clip_tool_run")
-fzf_tool=$(get_option "@extrakto_fzf_tool")
-open_tool=$(get_option "@extrakto_open_tool")
-copy_key=$(get_option "@extrakto_copy_key")
-insert_key=$(get_option "@extrakto_insert_key")
-filter_key=$(get_option "@extrakto_filter_key")
-open_key=$(get_option "@extrakto_open_key")
-edit_key=$(get_option "@extrakto_edit_key")
-grab_key=$(get_option "@extrakto_grab_key")
-help_key=$(get_option "@extrakto_help_key")
-fzf_layout=$(get_option "@extrakto_fzf_layout")
+grab_area=$(get_option "@maccyakto_grab_area")
+clip_tool=$(get_option "@maccyakto_clip_tool")
+clip_tool_run=$(get_option "@maccyakto_clip_tool_run")
+fzf_tool=$(get_option "@maccyakto_fzf_tool")
+open_tool=$(get_option "@maccyakto_open_tool")
+copy_key=$(get_option "@maccyakto_copy_key")
+insert_key=$(get_option "@maccyakto_insert_key")
+filter_key=$(get_option "@maccyakto_filter_key")
+open_key=$(get_option "@maccyakto_open_key")
+edit_key=$(get_option "@maccyakto_edit_key")
+grab_key=$(get_option "@maccyakto_grab_key")
+help_key=$(get_option "@maccyakto_help_key")
+fzf_layout=$(get_option "@maccyakto_fzf_layout")
 
 capture_pane_start=$(get_capture_pane_start "$grab_area")
 original_grab_area=${grab_area} # keep this so we can cycle between alternatives on fzf
@@ -147,15 +147,15 @@ capture() {
     header_tmpl+=", ${COLORS[BOLD]}${grab_key}${COLORS[OFF]}=grab area [${COLORS[YELLOW]}${COLORS[BOLD]}:ga:${COLORS[OFF]}]"
     header_tmpl+=", ${COLORS[BOLD]}${help_key}${COLORS[OFF]}=help"
 
-    extra_extrakto_options="--min-length=4 --warn-empty"
+    extra_maccyakto_options="--min-length=4 --warn-empty"
 
     get_cap() {
         if [[ $mode == all ]]; then
-            capture_panes | $extrakto $extra_extrakto_options --alt --all --name -r
+            capture_panes | $maccyakto $extra_maccyakto_options --alt --all --name -r
         elif [[ $mode == line ]]; then
-            capture_panes | $extrakto $extra_extrakto_options -rl
+            capture_panes | $maccyakto $extra_maccyakto_options -rl
         else
-            capture_panes | $extrakto $extra_extrakto_options -rw
+            capture_panes | $maccyakto $extra_maccyakto_options -rw
         fi
     }
 

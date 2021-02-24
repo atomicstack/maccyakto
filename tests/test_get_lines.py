@@ -3,7 +3,7 @@
 
 import unittest
 
-from extrakto import get_lines
+from maccyakto import get_lines
 
 
 class TestGetLines(unittest.TestCase):
